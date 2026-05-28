@@ -1,15 +1,10 @@
-name: "Docker Message Action"
-description: "Une action Docker qui génère et affiche un message personnalisé"
-inputs:
-  message:
-    description: "Le message à afficher"
-    required: true
-outputs:
-  output-message:
-    description: "Le message généré par l'action"
-runs:
-  using: "docker"
-  image: "Dockerfile"
-  args:
-    - ${{ inputs.message }}
+# Utiliser une image de base légère
+FROM alpine:3.14
+
+# Ajouter un script d'entrée
+COPY entrypoint.sh /entrypoint.sh
+RUN chmod +x /entrypoint.sh
+
+# Définir le script comme point d'entrée
+ENTRYPOINT ["/entrypoint.sh"]
 
